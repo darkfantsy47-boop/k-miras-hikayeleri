@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { GameState, Character, Unit, Item, GameEvent } from "@/types/game";
+import { GameState, Character, Unit, Item, GameEvent, Combat, Dialogue } from "@/types/game";
 import { gameEvents } from "@/data/events";
+import { gameNpcs } from "@/data/npcs";
+import { gameLocations } from "@/data/locations";
 import heroKnight from "@/assets/hero-knight.png";
 
 const SAVE_KEY = "dark_fantasy_save";
@@ -21,7 +23,9 @@ const initialState: GameState = {
   army: [],
   inventory: [],
   completedEvents: [],
-  npcs: [],
+  npcs: gameNpcs,
+  locations: gameLocations,
+  currentLocation: "village",
   gameStarted: false,
   dayCount: 1
 };
@@ -41,6 +45,12 @@ interface GameContextType {
   getRandomEvent: () => GameEvent | undefined;
   addXP: (amount: number) => void;
   advanceDay: () => void;
+  startCombat: (combat: Combat) => void;
+  endCombat: () => void;
+  startDialogue: (dialogue: Dialogue) => void;
+  endDialogue: () => void;
+  changeLocation: (locationId: string) => void;
+  unlockLocation: (locationId: string) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -225,6 +235,50 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }));
   };
 
+  const startCombat = (combat: Combat) => {
+    setGameState(prev => ({
+      ...prev,
+      currentCombat: combat
+    }));
+  };
+
+  const endCombat = () => {
+    setGameState(prev => ({
+      ...prev,
+      currentCombat: undefined
+    }));
+  };
+
+  const startDialogue = (dialogue: Dialogue) => {
+    setGameState(prev => ({
+      ...prev,
+      currentDialogue: dialogue
+    }));
+  };
+
+  const endDialogue = () => {
+    setGameState(prev => ({
+      ...prev,
+      currentDialogue: undefined
+    }));
+  };
+
+  const changeLocation = (locationId: string) => {
+    setGameState(prev => ({
+      ...prev,
+      currentLocation: locationId
+    }));
+  };
+
+  const unlockLocation = (locationId: string) => {
+    setGameState(prev => ({
+      ...prev,
+      locations: prev.locations.map(loc =>
+        loc.id === locationId ? { ...loc, unlocked: true } : loc
+      )
+    }));
+  };
+
   // Auto-save every time game state changes
   useEffect(() => {
     if (gameState.gameStarted) {
@@ -248,7 +302,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         completeEvent,
         getRandomEvent,
         addXP,
-        advanceDay
+        advanceDay,
+        startCombat,
+        endCombat,
+        startDialogue,
+        endDialogue,
+        changeLocation,
+        unlockLocation
       }}
     >
       {children}

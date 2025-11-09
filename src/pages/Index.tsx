@@ -3,6 +3,7 @@ import { useGame } from "@/contexts/GameContext";
 import { MainMenu } from "@/components/game/MainMenu";
 import { CharacterCreation } from "@/components/game/CharacterCreation";
 import { GameScreen } from "@/components/game/GameScreen";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 type GameView = "menu" | "character-creation" | "game" | "settings";
@@ -28,9 +29,7 @@ const Index = () => {
   };
 
   const handleSettings = () => {
-    toast.info("Ayarlar", {
-      description: "Ayarlar paneli yakında gelecek!"
-    });
+    setCurrentView("settings");
   };
 
   const handleCharacterCreationComplete = (name: string, characterClass: string, portrait: string) => {
@@ -53,6 +52,25 @@ const Index = () => {
         onComplete={handleCharacterCreationComplete}
         onBack={() => setCurrentView("menu")}
       />
+    );
+  }
+
+  if (currentView === "settings") {
+    return (
+      <div className="min-h-screen bg-background p-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-4 mb-6">
+            <Button onClick={() => setCurrentView("menu")} variant="outline">
+              Geri
+            </Button>
+            <h2 className="font-medieval text-3xl text-primary">Ayarlar</h2>
+          </div>
+          <div className="text-center font-body text-muted-foreground">
+            <p>Ayarlar paneli oyun içinde mevcuttur.</p>
+            <p>Oyunu başlattıktan sonra menü butonuna basarak ayarlara ulaşabilirsiniz.</p>
+          </div>
+        </div>
+      </div>
     );
   }
 
