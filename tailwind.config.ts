@@ -47,16 +47,19 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        blood: {
+          DEFAULT: "hsl(var(--blood-red))",
         },
+        gold: {
+          DEFAULT: "hsl(var(--dark-gold))",
+        },
+        shadow: {
+          DEFAULT: "hsl(var(--shadow-purple))",
+        },
+      },
+      fontFamily: {
+        medieval: ['Cinzel', 'Georgia', 'serif'],
+        body: ['Crimson Text', 'Georgia', 'serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
