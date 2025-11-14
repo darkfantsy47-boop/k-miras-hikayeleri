@@ -88,6 +88,17 @@ export interface EventOutcome {
     unitsGained?: number;
     itemGained?: string;
     xp?: number;
+    startCombat?: boolean;
+    enemyName?: string;
+    enemyHp?: number;
+    enemyMaxHp?: number;
+    enemyAttack?: number;
+    enemyDefense?: number;
+    combatRewards?: {
+      gold?: number;
+      xp?: number;
+      items?: string[];
+    };
   };
 }
 

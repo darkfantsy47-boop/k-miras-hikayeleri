@@ -62,7 +62,8 @@ export const EventCard = ({ event, onChoice }: EventCardProps) => {
               <div className="pt-4 border-t border-border">
                 <div className="grid grid-cols-2 gap-3 text-sm font-body">
                   {selectedChoice !== null && Object.entries(event.choices[selectedChoice].outcome.effects).map(([key, value]) => {
-                    if (!value) return null;
+                    if (!value || typeof value !== 'number' && typeof value !== 'boolean') return null;
+                    if (key === 'startCombat' || key === 'enemyName' || key === 'enemyHp' || key === 'enemyMaxHp' || key === 'enemyAttack' || key === 'enemyDefense' || key === 'combatRewards') return null;
                     
                     const labels: any = {
                       gold: "Altın",
