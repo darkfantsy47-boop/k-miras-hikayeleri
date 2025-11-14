@@ -6,6 +6,7 @@ import { useGame } from "@/contexts/GameContext";
 import { Swords, Shield, Zap, Skull } from "lucide-react";
 import { audioManager } from "@/utils/audioManager";
 import { toast } from "sonner";
+import fxSlash from "@/assets/fx-slash.png";
 
 interface CombatScreenProps {
   onVictory: (rewards: any) => void;
@@ -20,6 +21,9 @@ export const CombatScreen = ({ onVictory, onDefeat }: CombatScreenProps) => {
   const [combatLog, setCombatLog] = useState<string[]>([]);
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showSlashEffect, setShowSlashEffect] = useState(false);
+  const [shakeEnemy, setShakeEnemy] = useState(false);
+  const [shakePlayer, setShakePlayer] = useState(false);
 
   if (!combat) return null;
 
@@ -31,6 +35,14 @@ export const CombatScreen = ({ onVictory, onDefeat }: CombatScreenProps) => {
     if (!isPlayerTurn || isProcessing) return;
     setIsProcessing(true);
     audioManager.playSound("attack");
+
+    // Slash effect animation
+    setShowSlashEffect(true);
+    setShakeEnemy(true);
+    setTimeout(() => {
+      setShowSlashEffect(false);
+      setShakeEnemy(false);
+    }, 500);
 
     const armyAttack = gameState.army.reduce((sum, unit) => sum + unit.attack, 0);
     const damage = Math.max(1, Math.floor(armyAttack / 2 - combat.enemyDefense / 4));
@@ -83,6 +95,20 @@ export const CombatScreen = ({ onVictory, onDefeat }: CombatScreenProps) => {
     setIsProcessing(true);
     audioManager.playSound("skill");
 
+    // Double slash effect
+    setShowSlashEffect(true);
+    setShakeEnemy(true);
+    setTimeout(() => {
+      setShowSlashEffect(false);
+    }, 300);
+    setTimeout(() => {
+      setShowSlashEffect(true);
+    }, 400);
+    setTimeout(() => {
+      setShowSlashEffect(false);
+      setShakeEnemy(false);
+    }, 700);
+
     const armyAttack = gameState.army.reduce((sum, unit) => sum + unit.attack, 0);
     const damage = Math.floor(armyAttack * 0.8);
     const newEnemyHp = Math.max(0, enemyHp - damage);
@@ -108,6 +134,9 @@ export const CombatScreen = ({ onVictory, onDefeat }: CombatScreenProps) => {
     
     setTimeout(() => {
       audioManager.playSound("attack");
+      setShakePlayer(true);
+      setTimeout(() => setShakePlayer(false), 500);
+
       const damage = Math.max(1, combat.enemyAttack - Math.floor(gameState.army.reduce((sum, unit) => sum + unit.defense, 0) / gameState.army.length));
       const newPlayerHp = Math.max(0, playerHp - damage);
       

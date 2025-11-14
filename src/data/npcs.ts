@@ -1,11 +1,18 @@
 import { NPC } from "@/types/game";
-import heroKnight from "@/assets/hero-knight.png";
+import npcMerchant from "@/assets/npc-merchant.png";
+import npcGuard from "@/assets/npc-guard.png";
+import npcVillager from "@/assets/npc-villager.png";
+import npcBandit from "@/assets/npc-bandit.png";
+import npcStranger from "@/assets/npc-stranger.png";
+import npcBlacksmith from "@/assets/npc-blacksmith.png";
+import npcPriest from "@/assets/npc-priest.png";
+import npcNoble from "@/assets/npc-noble.png";
 
 export const gameNpcs: NPC[] = [
   {
     id: "merchant_ali",
     name: "Tüccar Ali",
-    portrait: heroKnight,
+    portrait: npcMerchant,
     personality: "friendly",
     dialogue: [
       "Hoş geldin! Ne arıyorsun?",
@@ -17,7 +24,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "guard_mehmet",
     name: "Muhafız Mehmet",
-    portrait: heroKnight,
+    portrait: npcGuard,
     personality: "neutral",
     dialogue: [
       "Bu bölge tehlikeli.",
@@ -29,7 +36,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "villager_ayse",
     name: "Köylü Ayşe",
-    portrait: heroKnight,
+    portrait: npcVillager,
     personality: "friendly",
     dialogue: [
       "Yardıma ihtiyacımız var!",
@@ -41,7 +48,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "bandit_leader",
     name: "Haydut Lideri",
-    portrait: heroKnight,
+    portrait: npcBandit,
     personality: "hostile",
     dialogue: [
       "Ne işin var burada?",
@@ -53,7 +60,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "mysterious_stranger",
     name: "Gizemli Yabancı",
-    portrait: heroKnight,
+    portrait: npcStranger,
     personality: "cunning",
     dialogue: [
       "Bilgi istersin değil mi?",
@@ -65,7 +72,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "blacksmith",
     name: "Demirci Hasan",
-    portrait: heroKnight,
+    portrait: npcBlacksmith,
     personality: "neutral",
     dialogue: [
       "En iyi silahları yaparım!",
@@ -77,7 +84,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "priest",
     name: "Rahip İbrahim",
-    portrait: heroKnight,
+    portrait: npcPriest,
     personality: "friendly",
     dialogue: [
       "Tanrı seni korusun evlat.",
@@ -89,7 +96,7 @@ export const gameNpcs: NPC[] = [
   {
     id: "noble",
     name: "Soylu Mustafa",
-    portrait: heroKnight,
+    portrait: npcNoble,
     personality: "neutral",
     dialogue: [
       "Kralın emri buyurdu...",
